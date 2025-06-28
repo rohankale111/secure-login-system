@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+        }
+        .dashboard-container {
+            max-width: 600px;
+            margin: 80px auto;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        .dashboard-container h2 {
+            color: #333;
+        }
+        .btn {
+            margin-top: 20px;
+            padding: 10px 25px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h2>Welcome, Admin {{ username }}!</h2>
+        <p>This is your admin dashboard. Here you can manage the system.</p>
+        <a href="{{ url_for('logout') }}"><button class="btn">Logout</button></a>
+    </div>
+</body>
+</html>
+<div class="dashboard-container">
+    <h2>Welcome, {{ username }}!</h2>
+    <a href="{{ url_for('logout') }}" class="btn logout-btn">Logout</a>
+</div>
