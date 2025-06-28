@@ -1,10 +1,10 @@
 # Secure Login System (Flask + SQLite)
 
-## 📖 Project Overview
+##  Project Overview
 
 This is a secure login system built using Flask and SQLite. It supports user registration, login, role-based access for Admin and Users, and key security features like input validation, CAPTCHA, account lockout, and admin unlock functionality.
 
-## 🧪 Features
+##  Features
 
 - User Registration & Login
 - Admin & User Role Management
@@ -14,11 +14,11 @@ This is a secure login system built using Flask and SQLite. It supports user reg
 - Account Lockout after 3 Failed Attempts
 - Session Management and Logout
 
-## ⚙️ Setup Instructions
+## ⚙ Setup Instructions
 
 ```bash
 1. Clone the repo:
-   git clone https://github.com/yourusername/secure-login-system.git
+   git clone https://github.com/rohankale111/secure-login-system.git
 
 2. Navigate to the backend directory:
    cd secure-login-system/backend
@@ -36,7 +36,7 @@ This is a secure login system built using Flask and SQLite. It supports user reg
    python app.py
 
 
-## 📸 Screenshots
+##  Screenshots
 
 Here are some screenshots of the system in action:
 
@@ -50,7 +50,7 @@ Here are some screenshots of the system in action:
 - ![Duplicate Email Error](screenshots/duplicate_email.png)
 
 
-## 💡 Challenges & Solutions
+##  Challenges & Solutions
 
 **Problem:** Multiple databases being created.  
 **Solution:** Used absolute paths in `init_db()` and `get_db_connection()`.
