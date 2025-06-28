@@ -6,13 +6,20 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="dashboard-container">
-        <h2>Welcome, {{ username }}!</h2>
-        <p>You are logged in as a <strong>{{ role }}</strong>.</p>
-
-        <div class="dashboard-actions">
-            <a href="{{ url_for('logout') }}" class="btn logout-btn">Logout</a>
+    <div class="container">
+        <div class="form-box">
+            <h2>Welcome, {{ username }}!</h2>
+            <p>You have logged in as <strong>{{ role }}</strong>.</p>
+            {% if role == 'admin' %}
+                <p>This is your <strong>admin dashboard</strong>. Here you can manage the system.</p>
+            {% else %}
+                <p>This is your <strong>user dashboard</strong>. You can explore the application here.</p>
+            {% endif %}
+            <form method="POST" action="{{ url_for('logout') }}">
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
         </div>
     </div>
 </body>
 </html>
+

@@ -2,42 +2,152 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Register</title>
+    <title>User Registration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 450px;
+            margin: 60px auto;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 12px 14px;
+            margin: 12px 0 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #2575fc;
+            box-shadow: 0 0 8px rgba(37, 117, 252, 0.3);
+        }
+
+        .btn {
+            width: 100%;
+            background-color: #28a745;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        a {
+            color: #2575fc;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
 </head>
 <body>
-    <h2>Register</h2>
+    <div class="container">
+        <h2>Register Account</h2>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <ul>
-          {% for category, message in messages %}
-            <li style="color: {% if category == 'error' %}red{% elif category == 'success' %}green{% else %}black{% endif %};">
-              {{ message }}
-            </li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <div class="error">{{ msg }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
 
-    <form method="POST">
-        <label>Username:</label><br>
-        <input type="text" name="username" required><br><br>
+        <form action="{{ url_for('register') }}" method="post" onsubmit="return validateForm()">
+            <input type="text" name="username" id="username" placeholder="Username" required>
+            <input type="email" name="email" id="email" placeholder="Email" required>
+            <input type="password" name="password" id="password" placeholder="Password" required>
+            
+            <select name="role" required>
+                <option value="" disabled selected>Select Role</option>
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+            </select>
 
-        <label>Email:</label><br>
-        <input type="email" name="email" required><br><br>
+            <button type="submit" class="btn">Register</button>
+            <p id="password-error" class="error" style="display: none;"></p>
+        </form>
 
-        <label>Password:</label><br>
-        <input type="password" name="password" required><br><br>
+        <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+    </div>
 
-        <label>Role:</label><br>
-        <select name="role">
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-        </select><br><br>
+    <script>
+function validateForm() {
+    const password = document.getElementById('password').value;
+    const email = document.getElementById('email').value;
+    const errorMessage = document.getElementById('password-error');
+    
+    // Password Pattern Check
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$/;
+    if (!passwordPattern.test(password)) {
+        errorMessage.textContent = "Password must be at least 6 characters long and include uppercase, lowercase, number, and special character.";
+        errorMessage.style.display = "block";
+        return false;
+    }
 
-        <input type="submit" value="Register">
-    </form>
+    // Email Format Check
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    if (!emailPattern.test(email)) {
+        errorMessage.textContent = "Email must be in the format example@gmail.com.";
+        errorMessage.style.display = "block";
+        return false;
+    }
 
-    <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a>.</p>
+    // If both pass, hide error
+    errorMessage.style.display = "none";
+    return true;
+}
+</script>
+
 </body>
 </html>
