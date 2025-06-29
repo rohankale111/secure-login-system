@@ -14,6 +14,7 @@ This is a secure login system built using Flask and SQLite. It supports user reg
 - Account Lockout after 3 Failed Attempts
 - Session Management and Logout
 
+
 ## ⚙ Setup Instructions
 
 ```bash
